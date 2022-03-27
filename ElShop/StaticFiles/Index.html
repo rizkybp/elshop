@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Transaksi Nasabah</title>
+  <link href="bootstrap.css" rel="stylesheet" />
+
+  <script src="jquery-1.11.0.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+</head>
+<body>
+  <input type="hidden" id="id" value="0" />
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>Delete Row</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <table id="ItemTable"
+               class="table table-bordered table-condensed table-striped">
+          <thead>
+            <tr>
+              <th>Edit</th>
+              <th>Deskripsi</th>
+              <th>Amount</th>
+              <th>Pembayaran</th>
+			  <th>Customer Name</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+   
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            Item Information
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="description">
+                Descripsi
+              </label>
+              <input type="text" id="description"
+                     class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="amount">
+                Amount
+              </label>
+              <input type="number" id="amount"
+                     class="form-control" />
+            </div>
+            <div class="form-group">
+              <label for="debitCreditStatus">Pembayaran</label>
+              <input type="text" id="debitCreditStatus"
+                     class="form-control" />
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-12">
+                <button type="button" id="updateButton"
+                        class="btn btn-primary"
+                        onclick="updateClick();">
+                  Add
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      ItemList();
+    });
+
+    var Item = {
+      id: 0,
+      description: "",
+      amount: "",
+      debitCreditStatus: "",
+	  nasabahId : 1
+	  
+    }
+
+    function updateClick() {
+      // Build Item object from inputs
+      Item = new Object();
+      Item.id = $("#id").val();
+      Item.description = $("#description").val();
+      Item.amount = $("#amount").val();
+      Item.debitCreditStatus = $("#debitCreditStatus").val();
+	  Item.nasabahId = 1;
+
+      if ($("#updateButton").text().trim() == "Add") {
+        ItemAdd(Item);
+      }
+      else {
+        ItemUpdate(Item);
+      }
+    }
+
+    function addClick() {
+      formClear();
+    }
+
+    function ItemUpdate(Item) {
+      var url = "https://localhost:44304/TransaksiNasabah/" + Item.id;
+
+      // Call Web API to update Item
+      $.ajax({
+        url: url,
+        type: 'PUT',
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify(Item),
+        success: function (Item) {
+          ItemUpdateSuccess(Item);
+        },
+        error: function (request, message, error) {
+          handleException(request, message, error);
+        }
+      });
+    }
+
+    function ItemUpdateSuccess(Item) {
+      ItemUpdateInTable(Item);
+    }
+
+    function ItemAdd(Item) {
+      // Call Web API to add a new Item
+      $.ajax({
+        url: "https://localhost:44304/TransaksiNasabah",
+        type: 'POST',
+        contentType: "application/json;charset=utf-8",
+        data: JSON.stringify(Item),
+        success: function (Item) {
+          ItemAddSuccess(Item);
+        },
+        error: function (request, message, error) {
+          handleException(request, message, error);
+        }
+      });
+    }
+
+    function ItemAddSuccess(Item) {
+      ItemAddRow(Item);
+      formClear();
+    }
+
+    // Update Item in <table>
+    function ItemUpdateInTable(Item) {
+      // Find Item in <table>
+      var row = $("#ItemTable button[data-id='" + Item.id + "']")
+                .parents("tr")[0];
+      // Add changed Item to table
+      $(row).after(ItemBuildTableRow(Item));
+      // Remove original Item
+      $(row).remove();
+
+      // Clear form fields
+      formClear();
+
+      // Change Update Button Text
+      $("#updateButton").text("Add");
+    }
+
+    function ItemGet(ctl) {
+      // Get Item id from data- attribute
+      var id = $(ctl).data("id");
+
+      // Store Item id in hidden field
+      $("#id").val(id);
+
+      // Call Web API to get a Item
+      $.ajax({
+        url: "https://localhost:44304/TransaksiNasabah/TransaksiNasabah/" + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (Item) {
+          ItemToFields(Item);
+
+          // Change Update Button Text
+          $("#updateButton").text("Update");
+        },
+        error: function (request, message, error) {
+          handleException(request, message, error);
+        }
+      });
+    }
+
+    function ItemToFields(Item) {
+      $("#description").val(Item.description);
+      $("#amount").val(Item.amount);
+      $("#debitCreditStatus").val(Item.debitCreditStatus);
+    }
+
+    // Get all Items to display
+    function ItemList() {
+      // Call Web API to get a list of Items
+      $.ajax({
+        url: 'https://localhost:44304/TransaksiNasabah/TransaksiNasabah/',
+        type: 'GET',
+        dataType: 'json',
+        success: function (Items) {
+          ItemListSuccess(Items);
+        },
+        error: function (request, message, error) {
+          handleException(request, message, error);
+        }
+      });
+    }
+
+    // Display all Items returned from Web API call
+    function ItemListSuccess(Items) {
+      // Iterate over the collection of data
+      $.each(Items, function (index, Item) {
+        // Add a row to the Item table
+        ItemAddRow(Item);
+      });
+    }
+
+    // Add Item row to <table>
+    function ItemAddRow(Item) {
+      // First check if a <tbody> tag exists, add one if not
+      if ($("#ItemTable tbody").length == 0) {
+        $("#ItemTable").append("<tbody></tbody>");
+      }
+
+      // Append row to <table>
+      $("#ItemTable tbody").append(
+        ItemBuildTableRow(Item));
+    }
+
+    // Build a <tr> for a row of table data
+    function ItemBuildTableRow(Item) {
+      var ret = "<tr>" +
+            "<td>" +
+              "<button type='button' " +
+                  "onclick='ItemGet(this);' " +
+                  "class='btn btn-default' " +
+                  "data-id='" + Item.id + "'>" +
+                  "<span class='glyphicon glyphicon-edit' />" +
+              "</button>" +
+            "</td>" +
+            "<td>" + Item.description + "</td>" +
+            "<td>" + Item.amount + "</td>" +
+            "<td>" + Item.debitCreditStatus + "</td>" +
+			 "<td>" + Item.nasabah.name + "</td>" +
+            "<td>" +
+              "<button type='button' " +
+                      "onclick='ItemDelete(this);' " +
+                      "class='btn btn-default' " +
+                      "data-id='" + Item.id + "'>" +
+                      "<span class='glyphicon glyphicon-remove' />" +
+              "</button>" +
+            "</td>" +
+          "</tr>";
+
+      return ret;
+    }
+
+    // Delete Item from <table>
+    function ItemDelete(ctl) {
+      var id = $(ctl).data("id");
+
+      // Call Web API to delete a Item
+      $.ajax({
+        url: "https://localhost:44304/TransaksiNasabah/delete/" + id,
+        type: 'DELETE',
+        success: function (Item) {
+          $(ctl).parents("tr").remove();
+        },
+        error: function (request, message, error) {
+          handleException(request, message, error);
+        }
+      });
+    }
+
+    // Clear form fields
+    function formClear() {
+      $("#description").val("");
+      $("#amount").val("");
+      $("#debitCreditStatus").val("");
+    }
+
+    // Handle exceptions from AJAX calls
+    function handleException(request, message, error) {
+      var msg = "";
+
+      msg += "Code: " + request.status + "\n";
+      msg += "Text: " + request.statusText + "\n";
+      if (request.responseJSON != null) {
+        msg += "Message" + request.responseJSON.Message + "\n";
+      }
+
+      alert(msg);
+    }
+  </script>
+</body>
+</html>

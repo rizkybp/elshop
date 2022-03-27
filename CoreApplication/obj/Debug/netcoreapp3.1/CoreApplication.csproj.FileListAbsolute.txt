@@ -1,0 +1,9 @@
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\bin\Debug\netcoreapp3.1\CoreApplication.deps.json
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\bin\Debug\netcoreapp3.1\CoreApplication.dll
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\bin\Debug\netcoreapp3.1\CoreApplication.pdb
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.csprojAssemblyReference.cache
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.dll
+C:\Users\Lenovo\source\repos\ElShop\CoreApplication\obj\Debug\netcoreapp3.1\CoreApplication.pdb

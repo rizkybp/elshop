@@ -1,0 +1,15 @@
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.csprojAssemblyReference.cache
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.AssemblyInfoInputs.cache
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.AssemblyInfo.cs
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.csproj.CoreCompileInputs.cache
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\Infrastucture.deps.json
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\Infrastucture.dll
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\Infrastucture.pdb
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\CoreApplication.dll
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\CoreApplication.pdb
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.csproj.CopyComplete
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.dll
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.pdb
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\Infrastucture.runtimeconfig.json
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\bin\Debug\netcoreapp3.1\Infrastucture.runtimeconfig.dev.json
+C:\Users\Lenovo\source\repos\ElShop\Infrastucture\obj\Debug\netcoreapp3.1\Infrastucture.genruntimeconfig.cache
